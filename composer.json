@@ -1,0 +1,26 @@
+{
+  "name": "prinx/phputils",
+  "type": "library",
+  "description": "PHP Utilities classes",
+  "keywords": ["php", "utils"],
+  "homepage": "https://github.com/Prinx/phputils",
+  "license": "MIT",
+  "authors": [{
+    "name": "Prince Damien Dorcis-Akpaglo",
+    "email": "princedorcis@gmail.com",
+    "role": "Developer",
+    "homepage": "https://github.com/Prinx"
+  }],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.1.0"
+  },
+  "config": {
+    "optimize-autoloader": true
+  },
+  "autoload": {
+    "psr-4": {
+      "Prinx\\Utils\\": "src/"
+    }
+  }
+}

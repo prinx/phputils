@@ -1,2 +1,3 @@
-# phputils
-Some Custom PHP Utilities Classes
+# PHP Utils
+
+PHP Utilities classes
