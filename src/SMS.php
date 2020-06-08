@@ -38,11 +38,7 @@ class SMS
 
             foreach ($msg_chunks as $message) {
                 $sms_data['message'] = $message;
-                // echo "SMS DATA <br><br>";
-                // var_dump($sms_data);
-
                 $response[] = HTTP::post($sms_data, $data['endpoint'], 'Sending SMS');
-
             }
 
             if ($silent) {
@@ -54,14 +50,7 @@ class SMS
 
             $result = ['SUCCESS' => true];
 
-            // echo "RESPONSE VALUE <br><br>";
-            // var_dump($response);
-
             foreach ($response as $value) {
-
-                // echo "RESPONSE VALUE <br><br>";
-                // var_dump($value);
-
                 if (!$value['SUCCESS']) {
                     $success_all = false;
                     $result['SUCCESS'] = false;
