@@ -22,13 +22,17 @@ echo Str::isMaxLength('Woow', 5); // true
 Each utility class provides a set of static methods.
 
 ### Str: string utilities
-Check the available string processing methods [here](https://github.com/Prinx/phputils/edit/master/src/Str.php).
+Check the available methods [here](https://github.com/Prinx/phputils/edit/master/src/Str.php).
+
 ### Date: date utilities
-Check the available string processing methods [here](https://github.com/Prinx/phputils/edit/master/src/Date.php).
+Check the available methods [here](https://github.com/Prinx/phputils/edit/master/src/Date.php).
+
 ### HTTP: HTTP utilities
-Check the available string processing methods [here](https://github.com/Prinx/phputils/edit/master/src/HTTP.php).
+Check the available methods [here](https://github.com/Prinx/phputils/edit/master/src/HTTP.php).
+
 ### URL: URL utilities
-Check the available string processing methods [here](https://github.com/Prinx/phputils/edit/master/src/URL.php).
+Check the availableg methods [here](https://github.com/Prinx/phputils/edit/master/src/URL.php).
+
 ### SMS: sms utilities
-Check the available string processing methods [here](https://github.com/Prinx/phputils/edit/master/src/SMS.php).
+Check the available methods [here](https://github.com/Prinx/phputils/edit/master/src/SMS.php).
 
