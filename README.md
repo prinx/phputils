@@ -21,18 +21,18 @@ echo Str::isMaxLength('Woow', 5); // true
 ## Utilities classes
 Each utility class provides a set of static methods.
 
-### Str: string utilities
+### Str
 Check the available methods [here](https://github.com/Prinx/phputils/edit/master/src/Str.php).
 
-### Date: date utilities
+### Date
 Check the available methods [here](https://github.com/Prinx/phputils/edit/master/src/Date.php).
 
-### HTTP: HTTP utilities
+### HTTP
 Check the available methods [here](https://github.com/Prinx/phputils/edit/master/src/HTTP.php).
 
-### URL: URL utilities
+### URL
 Check the availableg methods [here](https://github.com/Prinx/phputils/edit/master/src/URL.php).
 
-### SMS: sms utilities
+### SMS
 Check the available methods [here](https://github.com/Prinx/phputils/edit/master/src/SMS.php).
 
