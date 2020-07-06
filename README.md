@@ -14,7 +14,7 @@ require_once 'path/to/vendor/autoload.php';
 ```
 Then you can _use_ the needed utility class:
 ```php
-use Prinx\Utils\Date;
+use Prinx\Utils\Str;
 
 echo Str::isMaxLength('Woow', 5); // true
 ```
