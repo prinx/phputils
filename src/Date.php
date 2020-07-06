@@ -1,8 +1,23 @@
 <?php
+
+/*
+ * This file is part of the PHPUtils package.
+ *
+ * (c) Prince Dorcis <princedorcis@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Prinx\Utils;
 
 use DateTime;
 
+/**
+ * Date utilities class
+ *
+ * @author Prince Dorcis <princedorcis@gmail.com>
+ */
 class Date
 {
     /**
@@ -45,7 +60,8 @@ class Date
         $d = DateTime::createFromFormat($format, $date);
         // echo $d->format($format) . '<br>';
         // echo $date;
-        return $d && $d->format($format) === $date;
+        // return $d && $d->format($format) === $date;
+        return !!$d;
     }
 
     public static function hasPassed($date, $format = 'j/n/Y')

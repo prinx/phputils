@@ -1,13 +1,21 @@
 <?php
-/**
- * (c) Nuna Akpaglo <princedorcis@gmail.com>
+
+/*
+ * This file is part of the PHPUtils package.
  *
- * This source file is subject to the MIT license that
- * is bundled with this source code in the file LICENSE.
+ * (c) Prince Dorcis <princedorcis@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Prinx\Utils;
 
+/**
+ * SMS utilities class
+ *
+ * @author Prince Dorcis <princedorcis@gmail.com>
+ */
 class SMS
 {
     public static $max_sms_content = 139;
@@ -38,7 +46,11 @@ class SMS
 
             foreach ($msg_chunks as $message) {
                 $sms_data['message'] = $message;
+                // echo "SMS DATA <br><br>";
+                // var_dump($sms_data);
+
                 $response[] = HTTP::post($sms_data, $data['endpoint'], 'Sending SMS');
+
             }
 
             if ($silent) {
@@ -50,7 +62,14 @@ class SMS
 
             $result = ['SUCCESS' => true];
 
+            // echo "RESPONSE VALUE <br><br>";
+            // var_dump($response);
+
             foreach ($response as $value) {
+
+                // echo "RESPONSE VALUE <br><br>";
+                // var_dump($value);
+
                 if (!$value['SUCCESS']) {
                     $success_all = false;
                     $result['SUCCESS'] = false;

@@ -1,29 +1,66 @@
 <?php
+
+/*
+ * This file is part of the PHPUtils package.
+ *
+ * (c) Prince Dorcis <princedorcis@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Prinx\Utils;
 
+/**
+ * Database Utilities class
+ *
+ * @author Prince Dorcis <princedorcis@gmail.com>
+ */
 class DB
 {
-    public static function load(array $params)
-    {
-        $dsn = $params['driver'];
-        $dsn .= ':host=' . $params['host'];
-        $dsn .= ';port=' . $params['port'];
+    /**
+     * Returns a PDO connection to the database
+     *
+     * @param array $params
+     * @param array $option
+     * @return \PDO
+     * @throws \Exception If unable to connect to the database
+     */
+    public static function load(array $params, array $options = [
+        \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+        \PDO::ATTR_PERSISTENT => true,
+    ]) {
+
+        $required = ['dbname' /* 'driver', 'host', 'port', 'user', 'password' */];
+        foreach ($required as $paramName) {
+            if (!isset($params[$paramName])) {
+                throw new \Exception('Parameter ' . $paramName . ' is required to connect to the database.');
+            }
+        }
+
+        $dsn = $params['driver'] ?? 'mysql';
+        $dsn .= ':host=' . $params['host'] ?? 'localhost';
+        $dsn .= ';port=' . $params['port'] ?? 3306;
         $dsn .= ';dbname=' . $params['dbname'];
 
-        $user = $params['user'];
-        $pass = $params['password'];
+        $user = $params['user'] ?? '';
+        $pass = $params['password'] ?? '';
 
         try {
-            return new \PDO($dsn, $user, $pass, [
-                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-                \PDO::ATTR_PERSISTENT => true,
-            ]);
+            return new \PDO($dsn, $user, $pass, $options);
         } catch (\PDOException $e) {
-            exit('Unable to connect to the database.<br/><br/><span style="color:violet;">Database Parameters</span>:<br/>Driver: ' . $params['driver'] . '<br/>Host: ' . $params['host'] . '<br/>Port: ' . $params['port'] . '<br/>Database: ' . $params['dbname'] . '<br/>User: ' . $params['user'] . '<br/>Password: You cannot see the password here! Check directly in your configurations.<br/><br/>Also check if the parameters are correct, if the ' . $params['driver'] . " service is running on the server which host the database and if there is an effective internet cconnection between the server that hosts your appication's server and the server that hosts the databse(s)." . '<br/><br/><span style="color:red;">ERROR: ' . $e->getMessage() . '</span>');
+            throw new \PDOException('ERROR CONNECTING TO DATABASE: ' . $e->getMessage() . ' in file ' . $e->getFile() . ':' . $e->getLine());
         }
     }
 
-    public static function createInsertSqlString(string $table, array $fields)
+    /**
+     * Create an INSERT query string
+     *
+     * @param string $tableName
+     * @param array $fields
+     * @return string
+     */
+    public static function createInsertSqlString($tableName, $fields)
     {
         $fields_str = "";
         $values_str = "";
@@ -36,22 +73,39 @@ class DB
         $fields_str = rtrim($fields_str, ', ');
         $values_str = rtrim($values_str, ', ');
 
-        return "INSERT INTO $table ($fields_str) VALUES ($values_str)";
+        return "INSERT INTO $tableName ($fields_str) VALUES ($values_str)";
     }
 
-    public static function insert(array $data, string $table, \PDO $db)
+    /**
+     * Insert a row to a table of the database
+     *
+     * @param array $data Associative array mapping the columns names of the table to the values that will inserted
+     * @param string $tableName
+     * @param \PDO $db
+     * @return int The ID of the inserted row
+     */
+    public static function insert($data, $tableName, $db)
     {
-        $sql = self::createInsertSqlString($table, array_keys($data));
+        $sql = self::createInsertSqlString($tableName, array_keys($data));
         $stmt = $db->prepare($sql);
         $stmt->execute($data);
-
         $stmt->closeCursor();
+
+        return $db->lastInsertId();
     }
 
-    public static function resultWithTrueInt(array $arr)
+    /**
+     * Parse a database result replacing integers by real integers
+     * By default, the database return everything as string
+     *
+     * @param array $arr
+     * @return array
+     * @todo Support for object (sometimes the response is an object instead of array)
+     */
+    public static function resultWithTrueInt($arr)
     {
         foreach ($arr as $key => $value) {
-            if (!is_null($value) && Str::isIntegerNumeric($value)) {
+            if (!is_null($value) && Str::isNumeric($value)) {
                 $arr[$key] = intval($value);
             }
         }
@@ -59,27 +113,14 @@ class DB
         return $arr;
     }
 
-    public static function resultWithTrueFloat(array $arr)
+    /**
+     * I wonder the necessity of this function
+     *
+     * @param array $data
+     * @return string
+     */
+    public static function createWhereInRange(array $data)
     {
-        foreach ($arr as $key => $value) {
-            if (!is_null($value) && Str::isFloatNumeric($value)) {
-                $arr[$key] = floatval($value);
-            }
-        }
-
-        return $arr;
-    }
-
-    public static function resultWithTrueNumeric(array $arr)
-    {
-        foreach ($arr as $key => $value) {
-            if (!is_null($value) && Str::isIntegerNumeric($value)) {
-                $arr[$key] = intval($value);
-            } elseif (!is_null($value) && Str::isFloatNumeric($value)) {
-                $arr[$key] = floatval($value);
-            }
-        }
-
-        return $arr;
+        return '(' . implode(',', $data) . ')';
     }
 }

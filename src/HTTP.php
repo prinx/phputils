@@ -1,9 +1,24 @@
 <?php
+
+/*
+ * This file is part of the PHPUtils package.
+ *
+ * (c) Prince Dorcis <princedorcis@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Prinx\Utils;
 
+/**
+ * HTTP requests utility class
+ *
+ * @author Prince Dorcis <princedorcis@gmail.com>
+ */
 class HTTP
 {
-    public static function post($postvars, $endpoint, $request_description = '')
+    public static function post($postvars, $endpoint, $requestDescription = '')
     {
         $curl_handle = curl_init();
         curl_setopt($curl_handle, CURLOPT_URL, $endpoint);
@@ -15,22 +30,24 @@ class HTTP
         $err = curl_error($curl_handle);
         curl_close($curl_handle);
 
+        $response = [
+            'SUCCESS' => true,
+            'data' => $result,
+        ];
+
         if ($err) {
             $description = '';
 
-            if ($request_description) {
-                $description = '<br/><span style="color:red;">ERROR POST REQUEST:</span> ' . $request_description . '<br/>';
+            if ($requestDescription) {
+                $description = '<br/><span style="color:red;">ERROR POST REQUEST:</span> ' . $requestDescription . '<br/>';
             }
 
-            return [
+            $response = [
                 'SUCCESS' => false,
                 'error' => $description . $err,
             ];
-        } else {
-            return [
-                'SUCCESS' => true,
-                'data' => $result,
-            ];
         }
+
+        return $response;
     }
 }

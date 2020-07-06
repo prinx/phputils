@@ -1,6 +1,21 @@
 <?php
+
+/*
+ * This file is part of the PHPUtils package.
+ *
+ * (c) Prince Dorcis <princedorcis@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Prinx\Utils;
 
+/**
+ * URL utilities class
+ *
+ * @author Prince Dorcis <princedorcis@gmail.com>
+ */
 class URL
 {
     public static function isUrl($url)
