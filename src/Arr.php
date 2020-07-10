@@ -32,6 +32,10 @@ class Arr
         $lookup = $array;
         $exploded = explode($sep, $key);
 
+        if (count($exploded) === 1) {
+            return $array[$key] ?? null;
+        }
+
         foreach ($exploded as $value) {
             if (!is_array($lookup) || !isset($lookup[$value])) {
                 return null;
@@ -84,6 +88,11 @@ class Arr
     {
         $exploded = explode($sep, $key);
         $depth = count($exploded);
+
+        if ($depth === 1) {
+            $array[$key] = $value;
+            return $array;
+        }
 
         $toAdd = [
             $exploded[$depth - 1] => $value,

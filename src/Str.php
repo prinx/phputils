@@ -315,12 +315,12 @@ class Str
     /**
      * Check if a string contains another string
      *
-     * @param string $needle
+     * @param string $substr
      * @param string $subject
      * @return boolean
      */
-    public function contains(string $needle, string $subject)
+    public function contains(string $substr, string $subject)
     {
-        return strpos($subject, $needle) !== false;
+        return strpos($subject, $substr) !== false;
     }
 }
