@@ -12,14 +12,14 @@
 namespace Prinx\Utils;
 
 /**
- * Database Utilities class
+ * Database Utilities class.
  *
  * @author Prince Dorcis <princedorcis@gmail.com>
  */
 class DB
 {
     /**
-     * Returns a PDO connection to the database
+     * Returns a PDO connection to the database.
      *
      * @param  array      $params
      * @param  array      $option
@@ -53,7 +53,7 @@ class DB
     }
 
     /**
-     * Create an INSERT query string
+     * Create an INSERT query string.
      *
      * @param  string   $tableName
      * @param  array    $fields
@@ -61,22 +61,22 @@ class DB
      */
     public static function createInsertSqlString($tableName, $fields)
     {
-        $fields_str = '';
-        $values_str = '';
+        $fieldsStr = '';
+        $valuesStr = '';
 
         foreach ($fields as $value) {
-            $fields_str .= $value.', ';
-            $values_str .= ':'.$value.', ';
+            $fieldsStr .= $value.', ';
+            $valuesStr .= ':'.$value.', ';
         }
 
-        $fields_str = rtrim($fields_str, ', ');
-        $values_str = rtrim($values_str, ', ');
+        $fieldsStr = rtrim($fieldsStr, ', ');
+        $valuesStr = rtrim($valuesStr, ', ');
 
-        return "INSERT INTO $tableName ($fields_str) VALUES ($values_str)";
+        return "INSERT INTO $tableName ($fieldsStr) VALUES ($valuesStr)";
     }
 
     /**
-     * Insert a row to a table of the database
+     * Insert a row to a table of the database.
      *
      * @param  array  $data         Associative array mapping the columns names of the table to the values that will inserted
      * @param  string $tableName
@@ -113,7 +113,7 @@ class DB
     }
 
     /**
-     * I wonder the necessity of this function
+     * I wonder the necessity of this function.
      *
      * @param  array    $data
      * @return string
