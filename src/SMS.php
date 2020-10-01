@@ -12,7 +12,7 @@
 namespace Prinx\Utils;
 
 /**
- * SMS utilities class
+ * SMS utilities class.
  *
  * @author Prince Dorcis <princedorcis@gmail.com>
  */
@@ -27,17 +27,16 @@ class SMS
         $required_params;
 
         try {
-
             foreach ($required_params as $param) {
                 if (!isset($data[$param])) {
-                    throw new \Exception('"send_sms" function requires parameter "' . $param . '".');
+                    throw new \Exception('"send_sms" function requires parameter "'.$param.'".');
                 }
             }
 
             $sms_data = [
-                'message' => '',
+                'message'   => '',
                 'recipient' => $data['recipient'],
-                'sender' => $data['sender'],
+                'sender'    => $data['sender'],
             ];
 
             $msg_chunks = self::makeSmsChunks($data['message']);
@@ -82,9 +81,8 @@ class SMS
             }
 
             return $result;
-
         } catch (\Exception $e) {
-            exit('An error happens while sending SMS: ' . $e->getMessage());
+            exit('An error happens while sending SMS: '.$e->getMessage());
         }
     }
 
@@ -98,7 +96,7 @@ class SMS
 
             foreach ($message_chunks as $index => $chunk) {
                 if ($index !== $last) {
-                    $message_chunks[$index] = $chunk . $continued;
+                    $message_chunks[$index] = $chunk.$continued;
                 }
             }
 

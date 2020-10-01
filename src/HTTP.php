@@ -12,7 +12,7 @@
 namespace Prinx\Utils;
 
 /**
- * HTTP requests utility class
+ * HTTP requests utility class.
  *
  * @author Prince Dorcis <princedorcis@gmail.com>
  */
@@ -32,19 +32,19 @@ class HTTP
 
         $response = [
             'SUCCESS' => true,
-            'data' => $result,
+            'data'    => $result,
         ];
 
         if ($err) {
             $description = '';
 
             if ($requestDescription) {
-                $description = '<br/><span style="color:red;">ERROR POST REQUEST:</span> ' . $requestDescription . '<br/>';
+                $description = '<br/><span style="color:red;">ERROR POST REQUEST:</span> '.$requestDescription.'<br/>';
             }
 
             $response = [
                 'SUCCESS' => false,
-                'error' => $description . $err,
+                'error'   => $description.$err,
             ];
         }
 

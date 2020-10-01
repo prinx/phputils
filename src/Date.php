@@ -14,14 +14,14 @@ namespace Prinx\Utils;
 use DateTime;
 
 /**
- * Date utilities class
+ * Date utilities class.
  *
  * @author Prince Dorcis <princedorcis@gmail.com>
  */
 class Date
 {
     /**
-     * Return number of days from a given date (in string)
+     * Return number of days from a given date (in string).
      */
     public static function daysNumberFrom($date_string, $strict = false, $format = 'Y-m-d')
     {
@@ -50,7 +50,7 @@ class Date
         return self::daysNumberFrom($date_string, $strict, $format);
     }
 
-    public static function now($format = "Y-m-d H:i:s")
+    public static function now($format = 'Y-m-d H:i:s')
     {
         return date($format);
     }
@@ -61,7 +61,7 @@ class Date
         // echo $d->format($format) . '<br>';
         // echo $date;
         // return $d && $d->format($format) === $date;
-        return !!$d;
+        return (bool) $d;
     }
 
     public static function hasPassed($date, $format = 'j/n/Y')
@@ -102,6 +102,7 @@ class Date
     public static function toDatabaseFormat($date, $currentFormat = 'j/n/Y')
     {
         $db_date = DateTime::createFromFormat($currentFormat, $date);
+
         return $db_date->format('Y-m-d H:i:s');
     }
 }

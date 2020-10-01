@@ -21,15 +21,17 @@ class DB
     /**
      * Returns a PDO connection to the database.
      *
-     * @param  array      $params
-     * @param  array      $option
+     * @param array $params
+     * @param array $option
+     *
      * @throws \Exception If unable to connect to the database
+     *
      * @return \PDO
      */
     public static function load(
-        array $params, array $options = [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION]
+        array $params,
+        array $options = [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION]
     ) {
-
         $required = ['dbname' /* 'driver', 'host', 'port', 'user', 'password' */];
         foreach ($required as $paramName) {
             if (!isset($params[$paramName])) {
@@ -55,8 +57,9 @@ class DB
     /**
      * Create an INSERT query string.
      *
-     * @param  string   $tableName
-     * @param  array    $fields
+     * @param string $tableName
+     * @param array  $fields
+     *
      * @return string
      */
     public static function createInsertSqlString($tableName, $fields)
@@ -78,10 +81,11 @@ class DB
     /**
      * Insert a row to a table of the database.
      *
-     * @param  array  $data         Associative array mapping the columns names of the table to the values that will inserted
-     * @param  string $tableName
-     * @param  \PDO   $db
-     * @return int    The ID of the inserted row
+     * @param array  $data      Associative array mapping the columns names of the table to the values that will inserted
+     * @param string $tableName
+     * @param \PDO   $db
+     *
+     * @return int The ID of the inserted row
      */
     public static function insert($data, $tableName, $db)
     {
@@ -95,10 +99,12 @@ class DB
 
     /**
      * Parse a database result replacing integers by real integers
-     * By default, the database return everything as string
+     * By default, the database return everything as string.
      *
      * @todo Support for object (sometimes the response is an object instead of array)
-     * @param  array   $arr
+     *
+     * @param array $arr
+     *
      * @return array
      */
     public static function resultWithTrueInt($arr)
@@ -115,7 +121,8 @@ class DB
     /**
      * I wonder the necessity of this function.
      *
-     * @param  array    $data
+     * @param array $data
+     *
      * @return string
      */
     public static function createWhereInRange(array $data)

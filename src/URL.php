@@ -12,7 +12,7 @@
 namespace Prinx\Utils;
 
 /**
- * URL utilities class
+ * URL utilities class.
  *
  * @author Prince Dorcis <princedorcis@gmail.com>
  */
