@@ -23,31 +23,29 @@ class Date
     /**
      * Return number of days from a given date (in string).
      */
-    public static function daysNumberFrom($date_string, $strict = false, $format = 'Y-m-d')
+    public static function daysNumberFrom($dateString, $strict = false, $format = 'Y-m-d')
     {
         $now = null;
         $date = null;
 
         if ($strict) {
             $now = time();
-            $date = strtotime($date_string);
+            $date = strtotime($dateString);
         } else {
             $now = strtotime(date($format));
-            $d = date($format, strtotime($date_string));
+            $d = date($format, strtotime($dateString));
             $date = strtotime($d);
         }
 
-        $diff_in_seconds = $date - $now;
-        $one_day_in_seconds = 60 * 60 * 24;
+        $diffInSeconds = $date - $now;
+        $oneDayInSeconds = 60 * 60 * 24;
 
-        $diff_in_seconds / $one_day_in_seconds;
-
-        return (int) round($diff_in_seconds / $one_day_in_seconds);
+        return (int) round($diffInSeconds / $oneDayInSeconds);
     }
 
-    public static function numberOfDaysFrom($date_string, $strict = false, $format = 'Y-m-d')
+    public static function numberOfDaysFrom($dateString, $strict = false, $format = 'Y-m-d')
     {
-        return self::daysNumberFrom($date_string, $strict, $format);
+        return self::daysNumberFrom($dateString, $strict, $format);
     }
 
     public static function now($format = 'Y-m-d H:i:s')
@@ -58,9 +56,9 @@ class Date
     public static function isDate($date, $format = 'j/n/Y')
     {
         $d = DateTime::createFromFormat($format, $date);
-        // echo $d->format($format) . '<br>';
-        // echo $date;
+
         // return $d && $d->format($format) === $date;
+
         return (bool) $d;
     }
 
@@ -101,8 +99,6 @@ class Date
 
     public static function toDatabaseFormat($date, $currentFormat = 'j/n/Y')
     {
-        $db_date = DateTime::createFromFormat($currentFormat, $date);
-
-        return $db_date->format('Y-m-d H:i:s');
+        return DateTime::createFromFormat($currentFormat, $date)->format('Y-m-d H:i:s');
     }
 }
