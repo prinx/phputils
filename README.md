@@ -5,7 +5,7 @@ PHP Utilities classes
 ## Installation
 
 ```shell
-composer require prinx/phputils:dev-master
+composer require prinx/phputils
 ```
 ## Usage
 Import the composer autoload file:
