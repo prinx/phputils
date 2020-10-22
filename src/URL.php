@@ -18,6 +18,12 @@ namespace Prinx\Utils;
  */
 class URL
 {
+    /**
+     * Check if a string is an URL.
+     *
+     * @param  string    $url
+     * @return boolean
+     */
     public static function isUrl($url)
     {
         /*

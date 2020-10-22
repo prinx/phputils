@@ -18,48 +18,48 @@ namespace Prinx\Utils;
  */
 class SMS
 {
-    public static $max_sms_content = 139;
+    public static $maxSmsContent = 139;
 
-    public function send(array $data, array $required_params = [], $silent = false)
+    public function send(array $data, array $requiredParams = [], $silent = false)
     {
-        $required_params = empty($required_params) ?
+        $requiredParams = empty($requiredParams) ?
         ['message', 'recipient', 'sender', 'endpoint'] :
-        $required_params;
+        $requiredParams;
 
         try {
-            foreach ($required_params as $param) {
+            foreach ($requiredParams as $param) {
                 if (!isset($data[$param])) {
-                    throw new \Exception('"send_sms" function requires parameter "'.$param.'".');
+                    throw new \Exception('"sendSms" function requires parameter "'.$param.'".');
                 }
             }
 
-            $sms_data = [
+            $smsData = [
                 'message'   => '',
                 'recipient' => $data['recipient'],
                 'sender'    => $data['sender'],
             ];
 
-            $msg_chunks = self::makeSmsChunks($data['message']);
+            $msgChunks = self::makeSmsChunks($data['message']);
 
             $response = [];
 
-            foreach ($msg_chunks as $message) {
-                $sms_data['message'] = $message;
-                $response[] = HTTP::post($sms_data, $data['endpoint'], 'Sending SMS');
+            foreach ($msgChunks as $message) {
+                $smsData['message'] = $message;
+                $response[] = HTTP::post($smsData, $data['endpoint'], 'Sending SMS');
             }
 
             if ($silent) {
                 return ['SUCCESS' => 'unknown'];
             }
 
-            $success_all = true;
-            $failed_all = true;
+            $successAll = true;
+            $failedAll = true;
 
             $result = ['SUCCESS' => true];
 
             foreach ($response as $value) {
                 if (!$value['SUCCESS']) {
-                    $success_all = false;
+                    $successAll = false;
                     $result['SUCCESS'] = false;
 
                     if (!isset($result['errors'])) {
@@ -68,13 +68,13 @@ class SMS
 
                     $result['errors'][] = $value['error'];
                 } else {
-                    $failed_all = false;
+                    $failedAll = false;
                 }
             }
 
-            if ($success_all) {
+            if ($successAll) {
                 $result['message'] = 'Message(s) delivered successfuly';
-            } elseif ($failed_all) {
+            } elseif ($failedAll) {
                 $result['message'] = 'All message(s) delivery failed';
             } else {
                 $result['message'] = 'Some messages delivery failed';
@@ -88,19 +88,19 @@ class SMS
 
     public static function makeSmsChunks($msg)
     {
-        if (strlen($msg) > self::$max_sms_content) {
+        if (strlen($msg) > self::$maxSmsContent) {
             $continued = '...';
-            $message_chunks = str_split($msg, self::$max_sms_content - strlen($continued));
+            $messageChunks = str_split($msg, self::$maxSmsContent - strlen($continued));
 
-            $last = count($message_chunks) - 1;
+            $last = count($messageChunks) - 1;
 
-            foreach ($message_chunks as $index => $chunk) {
+            foreach ($messageChunks as $index => $chunk) {
                 if ($index !== $last) {
-                    $message_chunks[$index] = $chunk.$continued;
+                    $messageChunks[$index] = $chunk.$continued;
                 }
             }
 
-            return $message_chunks;
+            return $messageChunks;
         }
 
         return [$msg];
