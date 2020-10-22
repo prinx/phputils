@@ -21,8 +21,9 @@ class URL
     /**
      * Check if a string is an URL.
      *
-     * @param  string    $url
-     * @return boolean
+     * @param string $url
+     *
+     * @return bool
      */
     public static function isUrl($url)
     {
